@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../data/heatmap_color.dart';
 
 class HeatMapContainer extends StatelessWidget {
@@ -38,7 +39,7 @@ class HeatMapContainer extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 5)),
           ),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 100),
             curve: Curves.easeInOutQuad,
             width: size,
             height: size,

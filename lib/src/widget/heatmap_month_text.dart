@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../util/date_util.dart';
 
 class HeatMapMonthText extends StatelessWidget {
@@ -19,6 +20,8 @@ class HeatMapMonthText extends StatelessWidget {
   /// The margin value for correctly space between labels.
   final EdgeInsets? margin;
 
+  final bool alwaysShowFirstMonthLabel;
+
   const HeatMapMonthText({
     Key? key,
     this.firstDayInfos,
@@ -26,6 +29,7 @@ class HeatMapMonthText extends StatelessWidget {
     this.fontColor,
     this.size,
     this.margin,
+    this.alwaysShowFirstMonthLabel = true,
   }) : super(key: key);
 
   /// The list of every month labels and fitted space.
@@ -39,17 +43,22 @@ class HeatMapMonthText extends StatelessWidget {
     for (int label = 0; label < (firstDayInfos?.length ?? 0); label++) {
       // If given week is first week of given datesets or
       // first week of month, create labels
-      if (label == 0 ||
+      if ((alwaysShowFirstMonthLabel && label == 0) ||
           (label > 0 && firstDayInfos![label] != firstDayInfos![label - 1])) {
         _write = true;
 
         // Add Text without width margin if first week is end of the month.
         // Otherwise, add Text with width margin.
         items.add(
-          firstDayInfos!.length == 1 || (label == 0 && firstDayInfos![label] != firstDayInfos![label + 1])
+          firstDayInfos!.length == 1 ||
+                  (label == 0 &&
+                      firstDayInfos![label] != firstDayInfos![label + 1])
               ? _renderText(DateUtil.SHORT_MONTH_LABEL[firstDayInfos![label]])
               : Container(
-                  width: (((size ?? 20) + (margin?.right ?? 2)) * 2),
+                  width: ((size ?? 20) + (margin?.right ?? 2)) * 2,
+                  height: size ?? 20,
+                  alignment: Alignment.bottomLeft,
+                  clipBehavior: Clip.none,
                   margin: EdgeInsets.only(
                       left: margin?.left ?? 2, right: margin?.right ?? 2),
                   child: _renderText(
@@ -76,9 +85,13 @@ class HeatMapMonthText extends StatelessWidget {
   Widget _renderText(String text) {
     return Text(
       text,
+      maxLines: 1,
+      overflow: TextOverflow.visible,
+      softWrap: false,
       style: TextStyle(
         color: fontColor,
         fontSize: fontSize,
+        height: 1,
       ),
     );
   }

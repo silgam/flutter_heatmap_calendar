@@ -1,12 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import './heatmap_month_text.dart';
+
 import './heatmap_column.dart';
+import './heatmap_month_text.dart';
+import './heatmap_week_text.dart';
 import '../data/heatmap_color_mode.dart';
 import '../util/datasets_util.dart';
 import '../util/date_util.dart';
-import './heatmap_week_text.dart';
 
 class HeatMapPage extends StatelessWidget {
   /// List value of every sunday's month information.
@@ -75,6 +76,8 @@ class HeatMapPage extends StatelessWidget {
 
   final bool? showText;
 
+  final double? paddingHorizontal;
+
   HeatMapPage({
     Key? key,
     required this.colorMode,
@@ -90,6 +93,7 @@ class HeatMapPage extends StatelessWidget {
     this.onClick,
     this.margin,
     this.showText,
+    this.paddingHorizontal,
   })  : _dateDifferent = endDate.difference(startDate).inDays,
         maxValue = DatasetsUtil.getMaxValue(datasets),
         super(key: key);
@@ -146,6 +150,7 @@ class HeatMapPage extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            if (paddingHorizontal != null) SizedBox(width: paddingHorizontal),
             // Show week labels to left side of heatmap.
             HeatMapWeekText(
               margin: margin,
@@ -155,6 +160,7 @@ class HeatMapPage extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 // Show month labels to top of heatmap.
                 HeatMapMonthText(
@@ -163,6 +169,7 @@ class HeatMapPage extends StatelessWidget {
                   fontSize: fontSize,
                   fontColor: textColor,
                   size: size,
+                  alwaysShowFirstMonthLabel: false,
                 ),
 
                 // Heatmap itself.
@@ -171,6 +178,7 @@ class HeatMapPage extends StatelessWidget {
                 ),
               ],
             ),
+            if (paddingHorizontal != null) SizedBox(width: paddingHorizontal),
           ],
         ),
       ],

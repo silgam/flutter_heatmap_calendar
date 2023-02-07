@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../util/date_util.dart';
 
 class HeatMapWeekText extends StatelessWidget {
@@ -31,11 +32,13 @@ class HeatMapWeekText extends StatelessWidget {
           Container(
             height: size ?? 20,
             margin: margin ?? const EdgeInsets.all(2.0),
+            alignment: Alignment.centerRight,
             child: Text(
               label,
               style: TextStyle(
                 fontSize: fontSize ?? 12,
                 color: fontColor,
+                height: 1,
               ),
             ),
           ),

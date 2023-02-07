@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import './widget/heatmap_page.dart';
-import './widget/heatmap_color_tip.dart';
+
 import './data/heatmap_color_mode.dart';
 import './util/date_util.dart';
+import './widget/heatmap_color_tip.dart';
+import './widget/heatmap_page.dart';
 
 class HeatMap extends StatefulWidget {
   /// The Date value of start day of heatmap.
@@ -87,6 +88,8 @@ class HeatMap extends StatefulWidget {
   /// The double value of [HeatMapColorTip]'s tip container's size.
   final double? colorTipSize;
 
+  final double? paddingHorizontal;
+
   const HeatMap({
     Key? key,
     required this.colorsets,
@@ -107,6 +110,7 @@ class HeatMap extends StatefulWidget {
     this.colorTipHelper,
     this.colorTipCount,
     this.colorTipSize,
+    this.paddingHorizontal,
   }) : super(key: key);
 
   @override
@@ -146,6 +150,7 @@ class _HeatMap extends State<HeatMap> {
           onClick: widget.onClick,
           margin: widget.margin,
           showText: widget.showText,
+          paddingHorizontal: widget.paddingHorizontal,
         )),
 
         // Show HeatMapColorTip if showColorTip is true.
