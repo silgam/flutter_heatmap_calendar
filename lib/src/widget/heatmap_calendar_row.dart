@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../util/datasets_util.dart';
+
 import './heatmap_container.dart';
 import '../data/heatmap_color_mode.dart';
+import '../util/datasets_util.dart';
 import '../util/date_util.dart';
 import '../util/widget_util.dart';
 
@@ -29,6 +30,8 @@ class HeatMapCalendarRow extends StatelessWidget {
 
   /// The text color value of [HeatMapContainer]
   final Color? textColor;
+  
+  final Color? secondaryTextColor;
 
   /// The colorsets which give the color value for its thresholds key value.
   ///
@@ -75,6 +78,7 @@ class HeatMapCalendarRow extends StatelessWidget {
     this.defaultColor,
     this.colorsets,
     this.textColor,
+    this.secondaryTextColor,
     this.borderRadius,
     this.flexible,
     this.margin,
@@ -112,6 +116,7 @@ class HeatMapCalendarRow extends StatelessWidget {
                   size: size,
                   fontSize: fontSize,
                   textColor: textColor,
+                  secondaryTextColor: secondaryTextColor,
                   borderRadius: borderRadius,
                   margin: margin,
                   onClick: onClick,

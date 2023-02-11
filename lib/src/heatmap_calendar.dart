@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import './data/heatmap_color_mode.dart';
-import './widget/heatmap_calendar_page.dart';
-import './widget/heatmap_color_tip.dart';
 import './util/date_util.dart';
 import './util/widget_util.dart';
+import './widget/heatmap_calendar_page.dart';
+import './widget/heatmap_color_tip.dart';
 
 class HeatMapCalendar extends StatefulWidget {
   /// The datasets which fill blocks based on its value.
@@ -30,11 +32,15 @@ class HeatMapCalendar extends StatefulWidget {
   /// The text color value of every blocks.
   final Color? textColor;
 
+  final Color? secondaryTextColor;
+
   /// The double value of every block's fontSize.
   final double? fontSize;
 
   /// The double value of month label's fontSize.
   final double? monthFontSize;
+
+  final Color? monthTextColor;
 
   /// The double value of week label's fontSize.
   final double? weekFontSize;
@@ -97,7 +103,9 @@ class HeatMapCalendar extends StatefulWidget {
     this.size = 42,
     this.fontSize,
     this.monthFontSize,
+    this.monthTextColor,
     this.textColor,
+    this.secondaryTextColor,
     this.weekFontSize,
     this.weekTextColor,
     this.borderRadius,
@@ -140,35 +148,56 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
 
   /// Header widget which shows left, right buttons and year/month text.
   Widget _header() {
+    String yearText;
+    if (widget.initDate?.year == _currentDate?.year) {
+      yearText = '';
+    } else {
+      yearText = '${_currentDate?.year}년 ';
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         // Previous month button.
         IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 14,
+          padding: EdgeInsets.zero,
+          splashColor: Colors.transparent,
+          splashRadius: 14,
+          iconSize: 14,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+            vertical: VisualDensity.minimumDensity,
           ),
+          color: widget.monthTextColor,
           onPressed: () => changeMonth(-1),
+          icon: const Icon(
+            CupertinoIcons.chevron_left,
+          ),
         ),
 
         // Text which shows the current year and month
         Text(
-          DateUtil.MONTH_LABEL[_currentDate?.month ?? 0] +
-              ' ' +
-              (_currentDate?.year).toString(),
+          '$yearText${DateUtil.MONTH_LABEL[_currentDate?.month ?? 0]}',
           style: TextStyle(
             fontSize: widget.monthFontSize ?? 12,
+            color: widget.monthTextColor,
           ),
         ),
 
         // Next month button.
         IconButton(
-          icon: const Icon(
-            Icons.arrow_forward_ios,
-            size: 14,
+          padding: EdgeInsets.zero,
+          splashColor: Colors.transparent,
+          splashRadius: 14,
+          iconSize: 14,
+          visualDensity: const VisualDensity(
+            horizontal: VisualDensity.minimumDensity,
+            vertical: VisualDensity.minimumDensity,
           ),
+          color: widget.monthTextColor,
           onPressed: () => changeMonth(1),
+          icon: const Icon(
+            CupertinoIcons.chevron_right,
+          ),
         ),
       ],
     );
@@ -223,6 +252,7 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
             fontSize: widget.fontSize,
             defaultColor: widget.defaultColor,
             textColor: widget.textColor,
+            secondaryTextColor: widget.secondaryTextColor,
             margin: widget.margin,
             datasets: widget.datasets,
             colorsets: widget.colorsets,

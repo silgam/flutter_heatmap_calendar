@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import './heatmap_calendar_row.dart';
-import '../util/date_util.dart';
-import '../util/datasets_util.dart';
 import '../data/heatmap_color_mode.dart';
+import '../util/datasets_util.dart';
+import '../util/date_util.dart';
 
 class HeatMapCalendarPage extends StatelessWidget {
   /// The DateTime value which contains the current calendar's date value.
@@ -34,6 +35,8 @@ class HeatMapCalendarPage extends StatelessWidget {
 
   /// The text color value of every blocks
   final Color? textColor;
+
+  final Color? secondaryTextColor;
 
   /// ColorMode changes the color mode of blocks.
   ///
@@ -70,6 +73,7 @@ class HeatMapCalendarPage extends StatelessWidget {
     this.fontSize,
     this.defaultColor,
     this.textColor,
+    this.secondaryTextColor,
     this.margin,
     this.datasets,
     this.colorsets,
@@ -95,6 +99,7 @@ class HeatMapCalendarPage extends StatelessWidget {
             defaultColor: defaultColor,
             colorsets: colorsets,
             textColor: textColor,
+            secondaryTextColor: secondaryTextColor,
             borderRadius: borderRadius,
             flexible: flexible,
             margin: margin,
