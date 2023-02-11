@@ -212,6 +212,7 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
             widget.flexible ?? false,
             false,
             Container(
+              padding: const EdgeInsets.symmetric(vertical: 2),
               margin: EdgeInsets.only(
                   left: widget.margin?.left ?? 2,
                   right: widget.margin?.right ?? 2),
